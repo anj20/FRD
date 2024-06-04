@@ -4,8 +4,10 @@
     <file url="file://$PROJECT_DIR$/ApiGateway/ApiGateway/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ConfigServer/ConfigServer/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/HotelService/HotelService/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/RatingService/RatingService/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/OrderService/OrderService/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ProductService/ProductService/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ServiceRegistry/ServiceRegistry/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/UserService/UserService/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-admin-server/src/main/java" charset="UTF-8" />
   </component>
 </project>

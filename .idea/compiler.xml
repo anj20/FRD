@@ -7,23 +7,31 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="HotelService" />
+        <module name="UserService" />
+        <module name="spring-admin-server" />
         <module name="ServiceRegistry" />
         <module name="ConfigServer" />
-        <module name="RatingService" />
-        <module name="UserService" />
+        <module name="OrderService" />
         <module name="ApiGateway" />
+        <module name="ProductService (1)" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="HotelService" target="17" />
+      <module name="ProductService" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ApiGateway" options="-parameters" />
       <module name="ConfigServer" options="-parameters" />
       <module name="HotelService" options="-parameters" />
-      <module name="RatingService" options="-parameters" />
+      <module name="OrderService" options="-parameters" />
+      <module name="ProductService" options="-parameters" />
+      <module name="ProductService (1)" options="-parameters" />
       <module name="ServiceRegistry" options="-parameters" />
       <module name="UserService" options="-parameters" />
+      <module name="spring-admin-server" options="-parameters" />
     </option>
   </component>
 </project>

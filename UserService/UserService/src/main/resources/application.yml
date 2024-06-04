@@ -2,10 +2,18 @@ server:
   port: 8081
 
 spring:
+  boot:
+    admin:
+      client:
+#        url: http://localhost:8093
+        enabled: true
+        auto-registration: true
+        instance:
+           name: ${spring.application.name:JSS}
   application:
     name: USER-SERVICE
   datasource:
-    url: jdbc:mysql://localhost:3306/microservices
+    url: jdbc:mysql://localhost:3306/FRD
     username: root
     password: anujena
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -37,11 +45,11 @@ spring:
         provider:
           okta:
             issuer-uri:  https://dev-10941691.okta.com/oauth2/default
-
-
-
-
-
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
 
 #eureka:
@@ -59,11 +67,14 @@ management:
   endpoints:
     web:
       exposure:
-        include: health
+        include: "*"
 
   endpoint:
     health:
       show-details: always
+
+
+
 
 resilience4j:
   circuitbreaker:

@@ -12,25 +12,23 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "micro_users")
+@Table(name = "Users")
 public class User {
 
     @Id
     @Column(name = "ID")
     private String userId;
-
     @Column(name = "NAME", length = 20)
-    private String name;
-
+    private String userName;
     @Column(name = "EMAIL")
-
     private String email;
-    @Column(name = "ABOUT")
-    private String about;
-    //other user properties that you want
+    @Column(name = "PASSWORD")
+    private String password;
+    @Column(name = "Role")
+    private String role;
 
     @Transient
-    private List<Rating> ratings=new ArrayList<>();
+    private List<Orders> orders =new ArrayList<>();
 
 
 }

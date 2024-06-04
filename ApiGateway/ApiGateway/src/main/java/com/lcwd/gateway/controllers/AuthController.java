@@ -1,6 +1,7 @@
 package com.lcwd.gateway.controllers;
 
 import com.lcwd.gateway.models.AuthResponse;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+@Api(value = "Api Gateway")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {

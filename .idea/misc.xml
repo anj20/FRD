@@ -10,7 +10,18 @@
         <option value="$PROJECT_DIR$/HotelService/HotelService/pom.xml" />
         <option value="$PROJECT_DIR$/RatingService/RatingService/pom.xml" />
         <option value="$PROJECT_DIR$/ServiceRegistry/ServiceRegistry/pom.xml" />
+        <option value="$PROJECT_DIR$/ProductService/pom.xml" />
+        <option value="$PROJECT_DIR$/../Microservices-Tutorial-Series-main/ProductService/ProductService/pom.xml" />
+        <option value="$PROJECT_DIR$/ProductService/ProductService/pom.xml" />
+        <option value="$PROJECT_DIR$/OrderService/OrderService/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-admin-server/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/ProductService/pom.xml" />
+        <option value="$PROJECT_DIR$/../Microservices-Tutorial-Series-main/ProductService/ProductService/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="corretto-17" project-jdk-type="JavaSDK">

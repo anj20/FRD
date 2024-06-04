@@ -14,15 +14,15 @@ spring:
           predicates:
             - Path=/users/**
 
-        - id: HOTEL-SERVICE
-          uri: lb://HOTEL-SERVICE
+        - id: PRODUCT-SERVICE
+          uri: lb://PRODUCT-SERVICE
           predicates:
-            - Path=/hotels/**,/staffs/**
+            - Path=/products/**,/staffs/**
 
-        - id: RATING-SERVICE
-          uri: lb://RATING-SERVICE
+        - id: ORDER-SERVICE
+          uri: lb://ORDER-SERVICE
           predicates:
-            - Path=/ratings/**
+            - Path=/orders/**
 
 
 
