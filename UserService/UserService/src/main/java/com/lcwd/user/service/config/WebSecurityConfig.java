@@ -15,10 +15,19 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity security) throws Exception {
 
-        security.authorizeHttpRequests()
-                .anyRequest()
-                .authenticated()
-                .and()
+        security
+                .authorizeHttpRequests(auth -> auth
+                        .antMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-resources/**",
+                                "/swagger-ui.html",
+                                "/webjars/**",
+                                "/swagger-ui/**"
+                        )
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated()
+                )
                 .oauth2ResourceServer()
                 .jwt();
 

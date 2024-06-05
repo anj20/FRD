@@ -13,16 +13,22 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity security) throws Exception {
-
-
         security
-                .authorizeHttpRequests(
-                        auth->auth.antMatchers("/swagger-ui/**")
-                                   .permitAll()
-                                   .anyRequest()
-                                   .authenticated()
-                                    .and()).oauth2ResourceServer()
+                .authorizeHttpRequests(auth -> auth
+                        .antMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-resources/**",
+                                "/swagger-ui.html",
+                                "/webjars/**",
+                                "/swagger-ui/**"
+                        )
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated()
+                )
+                .oauth2ResourceServer()
                 .jwt();
+
         return security.build();
     }
 }

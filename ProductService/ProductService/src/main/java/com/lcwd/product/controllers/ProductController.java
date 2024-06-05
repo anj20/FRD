@@ -2,7 +2,6 @@ package com.lcwd.product.controllers;
 
 import com.lcwd.product.entites.Product;
 import com.lcwd.product.services.ProductService;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api(value = "Product Management System")
 @RestController
 @RequestMapping("/products")
 public class ProductController {

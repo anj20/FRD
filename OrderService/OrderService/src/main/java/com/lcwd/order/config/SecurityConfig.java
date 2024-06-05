@@ -17,10 +17,18 @@ public class SecurityConfig {
 
 
         security
-                .authorizeHttpRequests()
-                .anyRequest()
-                .authenticated()
-                .and()
+                .authorizeHttpRequests(auth -> auth
+                        .antMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-resources/**",
+                                "/swagger-ui.html",
+                                "/webjars/**",
+                                "/swagger-ui/**"
+                        )
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated()
+                )
                 .oauth2ResourceServer()
                 .jwt();
 
