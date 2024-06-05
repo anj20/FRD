@@ -35,7 +35,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUser(User user) {
-        //generate  unique userid
         String randomUserId = UUID.randomUUID().toString();
         user.setUserId(randomUserId);
         return userRepository.save(user);
@@ -50,24 +49,16 @@ public class UserServiceImpl implements UserService {
     //get single user
     @Override
     public User getUser(String userId) {
-        //get user from database with the help  of user repository
         User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User with given id is not found on server !! : " + userId));
-        // fetch order of the above  user from RATING SERVICE
-        //http://localhost:8083/orders/users/47e38dac-c7d0-4c40-8582-11d15f185fad
-
-        Orders[] ratingsOfUser = restTemplate.getForObject("http://ORDER-SERVICE/orders/users/" + user.getUserId(), Orders[].class);
-        logger.info("{} ", ratingsOfUser);
-        List<Orders> orders = Arrays.stream(ratingsOfUser).toList();
-        List<Orders> ordersList = orders.stream().map(rating -> {
-            //api call to products service to get the products
-            //http://localhost:8082/products/1cbaf36d-0b28-4173-b5ea-f1cb0bc0a791
+        Orders[] ordersOfUser = restTemplate.getForObject("http://ORDER-SERVICE/orders/users/" + user.getUserId(), Orders[].class);
+        logger.info("{} ", ordersOfUser);
+        List<Orders> orders = Arrays.stream(ordersOfUser).toList();
+        List<Orders> ordersList = orders.stream().map(order -> {
             //ResponseEntity<Products> forEntity = restTemplate.getForEntity("http://PRODUCT-SERVICE/products/"+order.getHotelId(), Products.class);
-            Products products = productService.getHotel(rating.getProductId());
-            // logger.info("response status code: {} ",forEntity.getStatusCode());
-            //set the products to order
-            rating.setProducts(products);
-            //return the order
-            return rating;
+//            Products products = productService.getHotel(order.getProductId());
+//            // logger.info("response status code: {} ",forEntity.getStatusCode());
+//            order.setProducts(products);
+            return order;
         }).collect(Collectors.toList());
 
         user.setOrders(ordersList);

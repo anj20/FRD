@@ -20,7 +20,7 @@ public class ProductController {
     private ProductService productService;
 
     //create
-    @PreAuthorize("hasAuthority('Admin')")
+//    @PreAuthorize("hasAuthority('Admin')")
     @PostMapping
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.create(product));
@@ -28,7 +28,7 @@ public class ProductController {
 
 
     //get single
-    @PreAuthorize("hasAuthority('SCOPE_internal')")
+//    @PreAuthorize("hasAuthority('SCOPE_internal')")
     @GetMapping("/{productId}")
     public ResponseEntity<Product> createProductById(@PathVariable String productId) {
         return ResponseEntity.status(HttpStatus.OK).body(productService.get(productId));
@@ -43,7 +43,7 @@ public class ProductController {
     }
 
     // Update
-    @PreAuthorize("hasAuthority('Admin')")
+//    @PreAuthorize("hasAuthority('Admin')")
     @PutMapping("/{productId}")
     public ResponseEntity<Product> updateProduct(@PathVariable String productId, @RequestBody Product productDetails) {
         Product updatedProduct = productService.update(productId, productDetails);
@@ -51,7 +51,7 @@ public class ProductController {
     }
 
     // Delete
-    @PreAuthorize("hasAuthority('Admin')")
+//    @PreAuthorize("hasAuthority('Admin')")
     @DeleteMapping("/{productId}")
     public ResponseEntity<Void> deleteProduct(@PathVariable String productId) {
         productService.delete(productId);

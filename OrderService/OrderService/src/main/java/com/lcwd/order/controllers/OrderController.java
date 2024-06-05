@@ -18,7 +18,7 @@ public class OrderController {
     private OrderService orderService;
 
     //create order
-    @PreAuthorize("hasAuthority('Admin')")
+//    @PreAuthorize("hasAuthority('Admin')")
     @PostMapping
     public ResponseEntity<Order> createOrder(@RequestBody Order order) {
         return ResponseEntity.status(HttpStatus.CREATED).body(orderService.create(order));
@@ -32,14 +32,14 @@ public class OrderController {
     }
 
 
-    @PreAuthorize("hasAuthority('Admin')")
+//    @PreAuthorize("hasAuthority('Admin')")
     @DeleteMapping("/{orderId}")
     public ResponseEntity<Void> cancelOrder(@PathVariable String orderId) {
         orderService.cancel(orderId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PreAuthorize("hasAuthority('Admin')")
+//    @PreAuthorize("hasAuthority('Admin')")
     @PutMapping("/{orderId}")
     public ResponseEntity<Order> updateOrder(@PathVariable String orderId, @RequestBody Order order) {
         order.setOrderId(orderId);
