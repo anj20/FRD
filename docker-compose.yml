@@ -1,52 +1,79 @@
-version: '3'
+version: '3.8'
 services:
-  user-management:
-    build: ./user-management
+  user-service:
+    build: ./UserService
     ports:
       - "8081:8081"
     environment:
-      - EUREKA_SERVER=http://eureka-server:8761/eureka/
+      - EUREKA_SERVER=http://service-registry:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/FRD
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=anujena
     depends_on:
-      - eureka-server
+      - service-registry
+#      - sqlserver
 
-  product-management:
-    build: ./product-management
+  product-service:
+    build: ./ProductService
     ports:
       - "8082:8082"
     environment:
-      - EUREKA_SERVER=http://eureka-server:8761/eureka/
+      - EUREKA_SERVER=http://service-registry:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/FRD1
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=anujena
     depends_on:
-      - eureka-server
+      - service-registry
+#      - sqlserver
 
-  order-processing:
-    build: ./order-processing
+  order-service:
+    build: ./OrderService
     ports:
       - "8083:8083"
     environment:
-      - EUREKA_SERVER=http://eureka-server:8761/eureka/
+      - EUREKA_SERVER=http://service-registry:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/FRD2
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=anujena
     depends_on:
-      - eureka-server
+      - service-registry
+#      - sqlserver
 
   api-gateway:
-    build: ./api-gateway
+    build: ./ApiGateway
     ports:
-      - "8080:8080"
+      - "8084:8084"
     environment:
-      - EUREKA_SERVER=http://eureka-server:8761/eureka/
+      - EUREKA_SERVER=http://service-registry:8761/eureka/
     depends_on:
-      - eureka-server
+      - service-registry
 
-  eureka-server:
-    build: ./eureka-server
+  service-registry:
+    build: ./ServiceRegistry
     ports:
       - "8761:8761"
 
+  config-server:
+    build: ./ConfigServer
+    ports:
+      - "8085:8085"
+
   admin-server:
-    build: ./admin-server
+    build: ./spring-admin-server
     ports:
       - "8084:8084"
     depends_on:
-      - eureka-server
+      - service-registry
+
+#  sqlserver:
+#    image: mcr.microsoft.com/mssql/server:2019-latest
+#    environment:
+#      SA_PASSWORD: "anujena"
+#      ACCEPT_EULA: "Y"
+#    ports:
+#      - "3306:3306"
+#    volumes:
+#      - sqlserverdata:/var/opt/mssql
 
   redis:
     image: redis:latest
@@ -67,3 +94,7 @@ services:
     image: wurstmeister/zookeeper:latest
     ports:
       - "2181:2181"
+
+#volumes:
+#  sqlserverdata:
+#     driver: local
