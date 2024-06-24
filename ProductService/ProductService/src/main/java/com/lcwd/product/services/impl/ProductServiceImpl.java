@@ -7,6 +7,8 @@ import com.lcwd.product.services.ProductService;
 import com.lcwd.product.services.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.UUID;
@@ -18,6 +20,9 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
     @Autowired
     private RedisService redisService;
+
+    private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
+
 
     @Override
     public Product create(Product product) {
@@ -35,22 +40,22 @@ public class ProductServiceImpl implements ProductService {
     public Product get(String id) {
         Product resp = redisService.get(id, Product.class);
         if (resp == null) {
+            logger.info("Fetched Data from SQL");
             Product body= productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("product with given id not found !!"));
             redisService.set(id,body,300l);
             return body;
         }
         else {
+            logger.info("Fetched Data from Redis");
             return resp;
         }
     }
 
     @Override
     public Product update(String id, Product product) {
-        // Ensure the product with the given ID exists
         if (productRepository.existsById(id)) {
             product.setId(id);
             Product updatedProduct = productRepository.save(product);
-            // Update cache
             redisService.set(id, updatedProduct, 300L);
             return updatedProduct;
         } else {
@@ -63,7 +68,6 @@ public class ProductServiceImpl implements ProductService {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product with given id not found !!"));
         productRepository.delete(product);
-        // Remove from cache
         redisService.delete(id);
     }
 }

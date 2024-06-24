@@ -18,32 +18,36 @@ public class RedisService  {
         redisTemplate.opsForValue().set(key,value);
     }
     public Product get(String key, Class<Product> entityClass) {
-        try {
-            Object o = redisTemplate.opsForValue().get(key);
-            ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(o.toString(), entityClass);
+        log.info("get key:{}",key);
+        Product p= (Product) redisTemplate.opsForValue().get(key);
+        try
+        {
+            log.info("got data for Redis");
+            return p;
         }
         catch (Exception e)
         {
-            log.error("Exceptioin",e);
+            log.error("ExceptionGet",e);
             return null;
         }
     }
-    public void set(String key,Object o,Long ttl) {
+    public void set(String key,Product p,Long ttl) {
         try {
-            redisTemplate.opsForValue().set(key,o,ttl, TimeUnit.SECONDS );
+            redisTemplate.opsForValue().set(key,p,ttl, TimeUnit.SECONDS );
+            log.info("Set Done");
         }
         catch (Exception e)
         {
-            log.error("Exceptioin",e);
+            log.error("ExceptionSet",e);
         }
     }
 
     public void delete(String key) {
         try {
             redisTemplate.delete(key);
+            log.info("Delete Done");
         } catch (Exception e) {
-            log.error("Exception", e);
+            log.error("ExceptionDel", e);
         }
     }
 }

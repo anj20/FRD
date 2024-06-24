@@ -3,6 +3,7 @@ package com.lcwd.product.controllers;
 import com.lcwd.product.entites.Product;
 import com.lcwd.product.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,7 +29,8 @@ public class ProductController {
     //get single
 //    @PreAuthorize("hasAuthority('SCOPE_internal')")
     @GetMapping("/{productId}")
-    public ResponseEntity<Product> createProductById(@PathVariable String productId) {
+//    @Cacheable(value = "product", key = "#id")
+    public ResponseEntity<Product> getProductById(@PathVariable String productId) {
         return ResponseEntity.status(HttpStatus.OK).body(productService.get(productId));
     }
 

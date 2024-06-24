@@ -29,14 +29,12 @@ public class UserController {
     @Autowired
     private KafkaServices kafkaService;
 
-    @PostMapping("/locations/curr")
-    public ResponseEntity<?> updateLocation() {
-
+    @PostMapping("/message")
+    public ResponseEntity<?> messageSend(@RequestBody String message) {
         for (int i = 1; i <= 200000; i++) {
-            this.kafkaService.updateLocation("( " + Math.round(Math.random() * 100) + " , " + Math.round(Math.random() * 100) + " " + ")");
+            this.kafkaService.sendMessage("("+message+")");
         }
-
-        return new ResponseEntity<>(Map.of("message", "Location updated"), HttpStatus.OK);
+        return new ResponseEntity<>(Map.of("message", "Message Sent"), HttpStatus.OK);
     }
     //create
     @PostMapping
@@ -45,21 +43,17 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(user1);
     }
     int retryCount=0;
-    //single user get
     @GetMapping("/{userId}")
     @CircuitBreaker(name = "ratingHotelBreaker", fallbackMethod = "ratingHotelFallback")
     @Retry(name = "ratingHotelService", fallbackMethod = "ratingHotelFallback")
     @RateLimiter(name = "userRateLimiter", fallbackMethod = "ratingHotelFallback")
     public ResponseEntity<User> getSingleUser(@PathVariable String userId) {
-
         logger.info("Get Single User Handler: " + userId);
         logger.info("Retry count: {}", retryCount);
         retryCount++;
         User user = userService.getUser(userId);
         return ResponseEntity.ok(user);
     }
-
-    //creating fall back  method for circuitbreaker
     public ResponseEntity<User> ratingHotelFallback(String userId, Exception ex) {
         logger.info("Fallback is executed because service is down : ", ex.getMessage());
         ex.printStackTrace();
@@ -67,8 +61,6 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
     }
 
-
-    //all user get
     @GetMapping
     public ResponseEntity<List<User>> getAllUser() {
         List<User> allUser = userService.getAllUser();

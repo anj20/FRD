@@ -1,10 +1,6 @@
-# Use an official OpenJDK runtime as a parent image
+# Dockerfile for Eureka Server
 FROM openjdk:11-jre-slim
-# Set the working directory inside the container
-WORKDIR /app
-# Copy the jar file into the working directory
-COPY target/ServiceRegistry-0.0.1-SNAPSHOT.jar /app/eureka-server.jar
-# Expose the port the Eureka Server will run on
-EXPOSE 8761
-# Run the jar file
+COPY ./ServiceRegistry/target/ServiceRegistry-0.0.1-SNAPSHOT.jar /usr/app/
+WORKDIR /usr/app
 ENTRYPOINT ["java", "-jar", "eureka-server.jar"]
+EXPOSE 8761
