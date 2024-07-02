@@ -1,6 +1,6 @@
 # Dockerfile for Order Processing Microservice
-FROM openjdk:11-jre-slim
+FROM openjdk:17-jdk-slim
 WORKDIR /app
-COPY ./OrderService/target/RatingService-0.0.1-SNAPSHOT.jar /app/OrderProcessing
-ENTRYPOINT ["java", "-jar", "OrderProcessing.jar"]
+COPY ./target/RatingService-0.0.1-SNAPSHOT.jar /app/OrderService.jar
+ENTRYPOINT ["java", "-jar", "OrderService.jar"]
 EXPOSE 8083

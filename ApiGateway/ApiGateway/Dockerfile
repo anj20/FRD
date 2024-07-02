@@ -1,6 +1,6 @@
 # Dockerfile for API Gateway
-FROM openjdk:11-jre-slim
+FROM openjdk:17-jdk-slim
 WORKDIR /app
-COPY ./ApiGateway/target/ApiGateway-0.0.1-SNAPSHOT.jar /app/ApiGateway.jar
+COPY ./target/ApiGateway-0.0.1-SNAPSHOT.jar /app/ApiGateway.jar
 ENTRYPOINT ["java", "-jar", "ApiGateway.jar"]
 EXPOSE 8084
